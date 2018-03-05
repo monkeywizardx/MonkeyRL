@@ -14,7 +14,7 @@ class GameObject:
         if self.pos() in entities:
             entities[self.pos()].on_collide(self, dx, dy)
 
-class NPC(GameObject):
+class Character(GameObject):
     def __init__(self, tile, x, y, health, attack, armor, entities):
         self.tile = tile
         self.x = x
