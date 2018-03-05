@@ -36,12 +36,12 @@ class NPC(GameObject):
         self.x += dx
         self.y += dy
         if self.pos() in entities:
-            entities[self.pos()].on_collide(self, dx, dy)
+            self.entities[self.pos()].on_collide(self, dx, dy)
 
     def on_collide(self, collider, dx, dy):
             self.damage(collider.attack)
             if self.dead:
-                entities[collider.pos()] = collider
+                self.entities[collider.pos()] = collider
             else:
                 collider.move(-dx, -dy)
-                entities[oldx, oldy] = collider
+                self.entities[oldx, oldy] = collider

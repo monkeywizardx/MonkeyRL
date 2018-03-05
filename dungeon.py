@@ -1,16 +1,21 @@
 import numpy as np
 import random
 
+DUNGEON_SIZE = 40
 def dig(m, x, y):
     try: m[x, y] = '.'
     except IndexError:
         return
 def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
     random.seed(seed)
-    level = np.array(['#' for x in range(50) for y in range(50)])
-    level.resize(50, 50)
+    level = np.array(['#'
+        for x in range(DUNGEON_SIZE)
+        for y in range(DUNGEON_SIZE)
+        ])
+    level.resize(40, 40)
     rooms = [
-        (random.randint(1, 48), random.randint(1, 48))
+        (random.randint(1, DUNGEON_SIZE - 2),
+         random.randint(1, DUNGEON_SIZE - 2))
         for i in range(maxrooms)
         ]
     for x, y in rooms:
@@ -25,7 +30,7 @@ def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
         level[x, 49] = '#'
     for y in range(50):
         level[0, y] = '#'
-        level[49, y] = '#'
+        level[40-1, y] = '#'
 
     room_path = {
 
