@@ -1,6 +1,10 @@
 import numpy as np
 import random
 
+def dig(m, x, y):
+    try: m[x, y] = '.'
+    except IndexError:
+        return
 def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
     random.seed(seed)
     level = np.array(['#' for x in range(50) for y in range(50)])
@@ -14,9 +18,8 @@ def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
 
         for dx in range(size):
             for dy in range(size):
-                level[(x + dx), (y + dy)] = '.'
-                level[(x - dx) % 50, (y + dy) % 50] = '.'
-
+                dig(level, x + dx, y + dy)
+                dig(level, x - dx, y - dy)
     for x in range(50):
         level[x, 0] = '#'
         level[x, 49] = '#'
