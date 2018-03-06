@@ -6,6 +6,7 @@ def dig(m, x, y):
     try: m[x, y] = '.'
     except IndexError:
         return
+
 def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
     random.seed(seed)
     level = np.array(['#'
@@ -18,7 +19,10 @@ def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
          random.randint(1, DUNGEON_SIZE - 2))
         for i in range(maxrooms)
         ]
+    center = None
     for x, y in rooms:
+        if center is None:
+            center = (x, y)
         size = random.randint(minsize, maxsize)
 
         for dx in range(size):
