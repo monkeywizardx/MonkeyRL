@@ -3,12 +3,12 @@ import random
 import tdl
 DUNGEON_SIZE = 40
 def dig(m, x, y):
-    try: m[x, y] = True
+    try: m.walkable[x, y] = True
     except IndexError:
         return
 
 def fill(m, x, y):
-    try: m[x, y] = False
+    try: m.walkable[x, y] = False
     except IndexError:
         return
 
@@ -21,16 +21,16 @@ def generate_level(maxrooms=10, minsize=5, maxsize=10, seed=None):
          random.randint(1, DUNGEON_SIZE - 2))
         for i in range(maxrooms)
         ]
-    center = None
+    center = (DUNGEON_SIZE//2, DUNGEON_SIZE//2)
+    rooms.append(center)
     for x, y in rooms:
-        if center is None:
-            center = (x, y)
         size = random.randint(minsize, maxsize)
 
         for dx in range(size):
             for dy in range(size):
                 dig(level, x + dx, y + dy)
                 dig(level, x - dx, y - dy)
+
     for x in range(50):
         fill(level, x, 0)
         fill(level, x, 49)
